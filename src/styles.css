@@ -19,6 +19,22 @@
   width: 100%;
 }
 
+#ul Form Input{
+  background: #202020;
+  border: 0;
+  border-radius: 4px;
+  height: 36px;
+  padding: 0 15px;
+  color: #fff;
+  margin: 0 0 10px;
+  margin-left: 10px;
+}
+
+#ul Form Input::placeholder {
+  color: #fff;
+}
+
+
 ul{
   display: inline-block;
 }

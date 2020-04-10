@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Form, Input } from '@rocketseat/unform'
 import api from './services/api'
 import { MdAddCircle } from 'react-icons/md'
 import { IoMdRemoveCircle } from 'react-icons/io'
@@ -19,16 +20,19 @@ function App() {
   }, [])
 
 
-  async function handleAddRepository() {
+  async function handleAddRepository(data, { resetForm }) {
+  
     const response = await api.post('repositories', {
-      title: `Desafio ReactJS ${Date.now()}`,
+      title: `${data.repository}`,
       url: "https://github.com/arthurpc03",
-      techs: ["ReactJS, NodeJS"]
+      techs: ["ReactJS", "React Native", "NodeJS"]
     })
-
+    
     const repository = response.data
     setRepositories([...repositories, repository])
+    resetForm()
   }
+
 
   async function handleRemoveRepository(id) {
     const repositoriesIndex = repositories.findIndex(repository=> repository.id === id)
@@ -55,8 +59,11 @@ function App() {
             }
 
         </ul>
-            <br/>
-        <button onClick={handleAddRepository}> <MdAddCircle /> Adicionar</button>
+        <br/>
+        <Form onSubmit={handleAddRepository}>
+          <button type="submit"> <MdAddCircle /> Adicionar</button>
+          <Input name="repository" type="text" placeholder="Nome do repositório" />
+        </Form>
       </div>
       <br/>
       <footer>
@@ -72,7 +79,6 @@ function App() {
         
         <a href="http://github.com/arthurpc03">
           <FaGithubSquare /></a>
-
       </footer>
     </div>
   );
